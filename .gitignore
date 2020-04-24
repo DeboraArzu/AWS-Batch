@@ -1,0 +1,4 @@
+.terraform
+s3-state-bucket/.terraform
+s3-state-bucket/terraform.tfstate
+plan.out

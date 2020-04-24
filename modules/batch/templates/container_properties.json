@@ -1,0 +1,14 @@
+{
+    "command": [],
+    "jobRoleArn": "${RoleArn}",
+    "image": "${container_image}",
+    "memory": 1024,
+    "vcpus": 1,
+    "environment": [
+        {
+            "name": "JOBROLE",
+            "value": "${RoleArn}"
+        }
+    ],
+    "ulimits": []
+}
