@@ -11,7 +11,7 @@ resource "aws_batch_compute_environment" "batch" {
       var.instance_type,
     ]
 
-    max_vcpus = 16
+    max_vcpus = 5
     min_vcpus = 0
     
     security_group_ids = [
@@ -32,12 +32,11 @@ resource "aws_batch_job_queue" "master_queue" {
   compute_environments = ["${aws_batch_compute_environment.batch.arn}"]
 }
 
-resource "aws_batch_job_definition" "veracyte_job_definition" {
+resource "aws_batch_job_definition" "demo_job_definition" {
   name = "demo_batch_job"
   type = "container"
 
   container_properties = templatefile("${path.module}/templates/container_properties.json", {
-    RoleArn              = aws_iam_role.batch_role.arn,
     container_image      = "${var.container_image}"
   })
 }
@@ -91,7 +90,7 @@ resource "aws_iam_role_policy" "batch_service_policy" {
 }
 
 resource "aws_iam_instance_profile" "batch_instance_profile" {
-  name = "${var.cluster_name}-demo-profilebatch-${var.environment}-${data.aws_region.current.name}"
+  name = "${var.cluster_name}-demo-debora-profilebatch-${var.environment}-${data.aws_region.current.name}"
   path = "/"
   role = aws_iam_role.batch_role.name
 }
@@ -112,7 +111,7 @@ resource "aws_iam_role_policy_attachment" "batchec2_attachment" {
 }
 
 resource "aws_security_group" "demo-batch-sg" {
-  name = "aws_batch_compute_environment_security_group"
+  name = "demo_aws_batch_compute_environment_security_group"
 
   egress {
     from_port   = 0

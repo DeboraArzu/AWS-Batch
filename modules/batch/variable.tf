@@ -6,7 +6,7 @@ variable "ami_id" {
 }
 variable "cluster_name" {
   description = "name of cluster"
-  default     = "veracyte-ECS-cluster"
+  default     = "demo-ECS-cluster"
 }
 
 variable "environment" {
